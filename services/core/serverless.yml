@@ -32,3 +32,6 @@ functions:
           path: hello
           method: get
           
+resources:
+  - ${file(resources/cognito.yml)}
+  - ${file(resources/dynamodb.yml)}
