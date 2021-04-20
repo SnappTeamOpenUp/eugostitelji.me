@@ -1,5 +1,4 @@
 service: core
-
 package:
   individually: true
 
@@ -11,12 +10,14 @@ plugins:
 provider:
   name: aws
   runtime: nodejs12.x
+  stackName: eugostitelji-core-stack
+  apiName: eugostitelji-api
   stage: dev
   region: us-east-1
   lambdaHashingVersion: "20201221"
 
   environment:
-    tableName: places
+    tableName: ${env:TABLE_NAME}
 
   iamRoleStatements:
     - Effect: Allow
@@ -30,38 +31,38 @@ provider:
         - dynamodb:DescribeTable
       Resource: "arn:aws:dynamodb:us-east-1:*:*"
 
-functions:
-  create:
-    handler: create.main
-    events:
-      - http:
-          path: places
-          method: post
-  get:
-    handler: get.main
-    events:
-      - http:
-          path: places/{id}
-          method: get
-  list:
-    handler: list.main
-    events:
-      - http:
-          path: places
-          method: get
-  update:
-    handler: update.main
-    events:
-      - http:
-          path: places/{id}
-          method: put
-  delete:
-    handler: delete.main
-    events:
-      - http:
-          path: places/{id}
-          method: delete
+# functions:
+#   create:
+#     handler: create.main
+#     events:
+#       - http:
+#           path: places
+#           method: post
+#   get:
+#     handler: get.main
+#     events:
+#       - http:
+#           path: places/{id}
+#           method: get
+#   list:
+#     handler: list.main
+#     events:
+#       - http:
+#           path: places
+#           method: get
+#   update:
+#     handler: update.main
+#     events:
+#       - http:
+#           path: places/{id}
+#           method: put
+#   delete:
+#     handler: delete.main
+#     events:
+#       - http:
+#           path: places/{id}
+#           method: delete
           
 resources:
   - ${file(resources/cognito.yml)}
-  - ${file(resources/dynamodb.yml)}
+  # - ${file(resources/dynamodb.yml)}
