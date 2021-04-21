@@ -14,6 +14,7 @@ Resources:
             RequireSymbols: false
         UsernameAttributes:
           - email
+        # TODO Add PostConfirmation lambda 
 
   WebUserPoolClient:
     Type: AWS::Cognito::UserPoolClient

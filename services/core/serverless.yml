@@ -40,7 +40,7 @@ provider:
 #         - dynamodb:DescribeTable
 #       Resource: "arn:aws:dynamodb:us-east-1:*:*"
 
-# functions:
+functions:
 #   algoliaSync:
 #     # Syncs ServiceProvider table to algolia service
 #     handler: algoliaSync.main
@@ -48,37 +48,8 @@ provider:
 #       - stream:
 #           type: dynamodb
 #           arn: !GetAtt ServiceProvider.StreamArn
-
-#   create:
-#     handler: create.main
-#     events:
-#       - http:
-#           path: places
-#           method: post
-#   get:
-#     handler: get.main
-#     events:
-#       - http:
-#           path: places/{id}
-#           method: get
-#   list:
-#     handler: list.main
-#     events:
-#       - http:
-#           path: places
-#           method: get
-#   update:
-#     handler: update.main
-#     events:
-#       - http:
-#           path: places/{id}
-#           method: put
-#   delete:
-#     handler: delete.main
-#     events:
-#       - http:
-#           path: places/{id}
-#           method: delete
+  confirmUserSignUp:
+    handler: confirmUserSignUp.confirm
 
 resources:
   - ${file(resources/cognito.yml)}
