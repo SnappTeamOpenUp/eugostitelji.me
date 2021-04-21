@@ -2,6 +2,7 @@ Resources:
   CognitoUserPool:
       Type: AWS::Cognito::UserPool
       Properties:
+        UserPoolName: eugostitelji-user-pool
         AutoVerifiedAttributes:
           - email
         Policies:
@@ -23,3 +24,9 @@ Resources:
         - ALLOW_USER_SRP_AUTH
         - ALLOW_REFRESH_TOKEN_AUTH
       PreventUserExistenceErrors: ENABLED
+      
+Outputs:
+  UserPoolOutput:
+    Value: !Ref CognitoUserPool
+  ClientIdOutput: 
+    Value: !Ref WebUserPoolClient
