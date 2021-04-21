@@ -4,8 +4,8 @@ custom:
   settings:
     searchTable: ServiceProvider
     userTable: UserT
-    algoliaAppId: ${ssm:notes-api/algolia/app-id}
-    algoliaAdminApiKey: ${ssm:notes-api/algolia/api-key}
+    algoliaAppId: ${ssm:/e-ugostitelji/algolia/app-id}
+    algoliaAdminApiKey: ${ssm:/e-ugostitelji/algolia/api-key}
     algoliaIndexName: service_provider
 
 package:
