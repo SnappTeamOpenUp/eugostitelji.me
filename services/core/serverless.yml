@@ -1,9 +1,18 @@
 service: core
+
+custom:
+  settings:
+    searchTable: ServiceProvider
+    userTable: UserT
+    algoliaAppId: ${ssm:notes-api/algolia/app-id}
+    algoliaAdminApiKey: ${ssm:notes-api/algolia/api-key}
+    algoliaIndexName: service_provider
+
 package:
   individually: true
 
 plugins:
-  - serverless-bundle 
+  - serverless-bundle
   - serverless-offline
   - serverless-dotenv-plugin
 
@@ -32,6 +41,14 @@ provider:
 #       Resource: "arn:aws:dynamodb:us-east-1:*:*"
 
 # functions:
+#   algoliaSync:
+#     # Syncs ServiceProvider table to algolia service
+#     handler: algoliaSync.main
+#     events:
+#       - stream:
+#           type: dynamodb
+#           arn: !GetAtt ServiceProvider.StreamArn
+
 #   create:
 #     handler: create.main
 #     events:
@@ -62,7 +79,7 @@ provider:
 #       - http:
 #           path: places/{id}
 #           method: delete
-          
+
 resources:
   - ${file(resources/cognito.yml)}
-  # - ${file(resources/dynamodb.yml)}
+  - ${file(resources/dynamodb.yml)}
