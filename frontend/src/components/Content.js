@@ -1,66 +1,60 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Item } from "./Item";
 
 const Content = () => {
+  const [places, setPlaces] = useState([]);
+
+  useEffect(() => {
+    fetchPlaces();
+  }, []);
+  const updatePibs = (pib) => {
+    axios
+      .put(
+        `https://f14iah3bhi.execute-api.us-east-2.amazonaws.com/dev/places/${pib}`
+      )
+      .then((res) => {
+        console.log(res);
+        console.log("Updated;");
+        fetchPlaces();
+      })
+      .catch((err) => console.log(err));
+  };
+  const fetchPlaces = () => {
+    console.log("fetching");
+    axios
+      .get("https://f14iah3bhi.execute-api.us-east-2.amazonaws.com/dev/places")
+      .then((res) => {
+        setPlaces(res.data);
+      });
+  };
+
+  const renderItems = (arr) => {
+    return arr.map((el) => (
+      <Item
+        name={el.lastUpdated}
+        pib={el.pib}
+        userId={el.userId}
+        updatePibs={updatePibs}
+      />
+    ));
+  };
   return (
     <div>
-      <div className=" shadow-xl flex flex-col justify-center items-center bg-white h-screen font-mono py-40">
-        <img
-          src="https://source.unsplash.com/random"
-          alt="image1"
-          className="h-full rounded mb-20 shadow"
-        />
-        <div className="center-content">
-          <h2 className="text-2xl mb-2">Object 1</h2>
-          <p className="mb-2">Description Description</p>
-          <Link className="py-6 px-10 bg-purple-500 rounded-full text-xl hover:bg-purple-300 transition duration-300 ease-in-out flex items-center">
-            Update
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
-          </Link>
+      {places.length ? (
+        renderItems(places)
+      ) : (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          Loading...
         </div>
-      </div>
-
-      <div className=" shadow-xl flex flex-col justify-center items-center bg-white h-screen font-mono py-40">
-        <img
-          src="https://source.unsplash.com/random"
-          alt="image2"
-          className="h-full rounded mb-20 shadow"
-        />
-        <div className="center-content">
-          <h2 className="text-2xl mb-2">Object 2</h2>
-          <p className="mb-2">Description</p>
-          <Link className="py-6 px-10 bg-purple-500 rounded-full text-xl hover:bg-purple-300 transition duration-300 ease-in-out flex items-center">
-            Update
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
-          </Link>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
