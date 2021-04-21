@@ -5,7 +5,7 @@ module.exports.hello = async (event) => {
     statusCode: 200,
     body: JSON.stringify(
       {
-        message: 'Confirm User Sign Up lambda called',
+        message: 'Confirm User Sign Up lambda called with following event:\n' + event,
       },
     ),
   };
