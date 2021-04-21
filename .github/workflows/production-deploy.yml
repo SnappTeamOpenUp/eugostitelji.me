@@ -2,7 +2,7 @@ name: Github Action deploy to production
 on:
   push:
     branches:
-      - main
+      - production
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
