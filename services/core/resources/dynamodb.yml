@@ -8,9 +8,9 @@ Resources:
         - AttributeName: userId
           AttributeType: S
       KeySchema:
-        - AttributeName: pib
-          KeyType: HASH
         - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: pib
           KeyType: RANGE
       ProvisionedThroughput:
         ReadCapacityUnits: 1
