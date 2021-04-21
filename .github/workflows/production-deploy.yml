@@ -22,6 +22,6 @@ jobs:
 
     - name: Move to service dir
       run: cd services/core
-      
+
     - name: Deploy Lambda functions
-      run: sls deploy -c services/core
+      run: sls deploy
