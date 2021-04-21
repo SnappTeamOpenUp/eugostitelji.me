@@ -6,8 +6,6 @@ on:
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
-    env:
-      working-directory: services/core
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
@@ -20,7 +18,9 @@ jobs:
       run: sls config credentials --provider aws --key ${{ secrets.AWS_KEY }} --secret ${{ secrets.AWS_SECRET }}
 
     - name: Install NPM dependencies
+      working-directory: services/core
       run: npm install
 
     - name: Deploy Lambda functions
+      working-directory: services/core
       run: sls deploy
