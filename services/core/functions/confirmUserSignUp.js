@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports.hello = async (event) => {
+module.exports.confirm = async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
-        message: 'Confirm User Sign Up lambda called',
+        message: 'Confirm User Sign Up lambda called with following event:\n' + event,
       },
     ),
   };

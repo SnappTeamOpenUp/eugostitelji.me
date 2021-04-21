@@ -85,6 +85,9 @@ functions:
 #           path: places/{id}
 #           method: delete
 
+  confirmUserSignUp:
+    handler: confirmUserSignUp.confirm
+
 resources:
   - ${file(resources/cognito.yml)}
   - ${file(resources/dynamodb.yml)}
