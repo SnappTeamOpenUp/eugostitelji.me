@@ -7,6 +7,7 @@ custom:
     algoliaAppId: ${ssm:/e-ugostitelji/algolia/app-id}
     algoliaAdminApiKey: ${ssm:/e-ugostitelji/algolia/api-key}
     algoliaIndexName: service_provider
+    tableName: ${env:TABLE_NAME}
 
 package:
   individually: true
@@ -22,57 +23,58 @@ provider:
   stackName: eugostitelji-core-stack
   apiName: eugostitelji-api
   stage: dev
-  region: us-east-1
+  region: us-east-2
   lambdaHashingVersion: "20201221"
 
-  environment:
-    tableName: ${env:TABLE_NAME}
+  environment: ${self:custom.settings}
 
-#   iamRoleStatements:
-#     - Effect: Allow
-#       Action:
-#         - dynamodb:Scan
-#         - dynamodb:Query
-#         - dynamodb:GetItem
-#         - dynamodb:PutItem
-#         - dynamodb:UpdateItem
-#         - dynamodb:DeleteItem
-#         - dynamodb:DescribeTable
-#       Resource: "arn:aws:dynamodb:us-east-1:*:*"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Scan
+        - dynamodb:Query
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeTable
+      Resource: "arn:aws:dynamodb:us-east-2:*:*"
 
-# functions:
-#   algoliaSync:
-#     # Syncs ServiceProvider table to algolia service
-#     handler: algoliaSync.main
-#     events:
-#       - stream:
-#           type: dynamodb
-#           arn: !GetAtt ServiceProvider.StreamArn
+functions:
+  algoliaSync:
+    # Syncs ServiceProvider table to algolia service
+    handler: functions/algoliaSync.main
+    events:
+      - stream:
+          type: dynamodb
+          arn: !GetAtt ServiceProvider.StreamArn
 
-#   create:
-#     handler: create.main
-#     events:
-#       - http:
-#           path: places
-#           method: post
-#   get:
-#     handler: get.main
-#     events:
-#       - http:
-#           path: places/{id}
-#           method: get
-#   list:
-#     handler: list.main
-#     events:
-#       - http:
-#           path: places
-#           method: get
-#   update:
-#     handler: update.main
-#     events:
-#       - http:
-#           path: places/{id}
-#           method: put
+  #   create:
+  #     handler: create.main
+  #     events:
+  #       - http:
+  #           path: places
+  #           method: post
+  getServiceProvider:
+    handler: functions/getServiceProvider.main
+    events:
+      - http:
+          path: places/{id}
+          method: get
+
+  listServiceProviders:
+    handler: functions/listServiceProviders.main
+    events:
+      - http:
+          path: places
+          method: get
+
+  updateServiceProvider:
+    handler: functions/updateServiceProvider.main
+    events:
+      - http:
+          path: places/{id}
+          method: put
 #   delete:
 #     handler: delete.main
 #     events:
