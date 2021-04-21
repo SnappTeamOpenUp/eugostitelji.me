@@ -6,6 +6,8 @@ on:
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
+    env:
+      working-directory: services/core
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
@@ -19,9 +21,6 @@ jobs:
 
     - name: Install NPM dependencies
       run: npm install
-
-    - name: Move to service dir
-      run: cd services/core
 
     - name: Deploy Lambda functions
       run: sls deploy
