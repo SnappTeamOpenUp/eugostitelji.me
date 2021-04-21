@@ -20,5 +20,8 @@ jobs:
     - name: Install NPM dependencies
       run: npm install
 
+    - name: Move to service dir
+      run: cd services/core
+      
     - name: Deploy Lambda functions
-      run: sls deploy
+      run: sls deploy -c services/core
