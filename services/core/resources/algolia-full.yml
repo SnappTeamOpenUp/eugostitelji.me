@@ -94,6 +94,7 @@ functions:
           method: delete
 
   algoliaSync:
+    # DynamoDB stream
     handler: algoliaSync.main
     events:
       - stream: arn:aws:dynamodb:us-east-2:308842074225:table/Property/stream/2021-04-20T19:32:22.647
