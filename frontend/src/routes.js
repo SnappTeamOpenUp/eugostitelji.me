@@ -12,7 +12,7 @@ export const RenderRoutes = ({ routes }) => {
   return (
     <Switch>
       {routes
-        .filter((item) => !item.permissions || (item.permissions && loggedIn))
+        .filter(item => !item.permissions || (item.permissions && loggedIn))
         .map((route, i) => {
           return <RouteWithSubRoutes key={route.key} {...route} />;
         })}
@@ -58,12 +58,12 @@ const ROUTES = [
   },
 ];
 
-const RouteWithSubRoutes = (route) => {
+const RouteWithSubRoutes = route => {
   return (
     <Route
       path={route.path}
       exact={route.exact}
-      render={(props) => <route.component {...props} routes={route.routes} />}
+      render={props => <route.component {...props} routes={route.routes} />}
     />
   );
 };
