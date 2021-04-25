@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Item } from "./Item";
 
-const Content = () => {
+export const Content = () => {
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
@@ -58,5 +58,3 @@ const Content = () => {
     </div>
   );
 };
-
-export default Content;

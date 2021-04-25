@@ -1,18 +1,17 @@
 import React, { useContext } from "react";
 import { Route, Switch } from "react-router-dom";
 import { AccountContext } from "./components/Accounts";
-import { Login } from "./components/Login";
-import { Signup } from "./components/Signup";
 import { Dashboard } from "./pages/Dashboard";
 import { Home } from "./pages/Home";
+import { Login } from "./pages/Login";
+import { Signup } from "./pages/Signup";
 
 export const RenderRoutes = ({ routes }) => {
   const { loggedIn } = useContext(AccountContext);
-  console.log(loggedIn);
   return (
     <Switch>
       {routes
-        .filter(item => !item.permissions || (item.permissions && loggedIn))
+        .filter((item) => !item.permissions || (item.permissions && loggedIn))
         .map((route, i) => {
           return <RouteWithSubRoutes key={route.key} {...route} />;
         })}
@@ -58,12 +57,12 @@ const ROUTES = [
   },
 ];
 
-const RouteWithSubRoutes = route => {
+const RouteWithSubRoutes = (route) => {
   return (
     <Route
       path={route.path}
       exact={route.exact}
-      render={props => <route.component {...props} routes={route.routes} />}
+      render={(props) => <route.component {...props} routes={route.routes} />}
     />
   );
 };

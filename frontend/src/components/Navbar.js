@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AccountContext } from "./Accounts";
 
-const Navbar = ({ toggle }) => {
+export const Navbar = ({ toggle }) => {
+  const { loggedIn, logout } = useContext(AccountContext);
   return (
     <nav
       className="flex justify-between items-center h-16 bg-white text-black relative shadow-sm font-mono"
@@ -27,24 +29,33 @@ const Navbar = ({ toggle }) => {
         </svg>
       </div>
       <div className="pr-8 md:block  hidden">
-        <Link to="/add" className="p-4">
+        {/* <Link to="/add" className="p-4">
           Add
-        </Link>
-        <Link to="/api" className="p-4">
+        </Link> */}
+        {/* <Link to="/api" className="p-4">
           API
-        </Link>
+        </Link> */}
         <Link to="/about" className="p-4">
           About us
         </Link>
         <Link to="/contact" className="p-4">
           Contact
         </Link>
-        <Link to="/login" className="p-4">
-          Login
-        </Link>
+        {loggedIn ? (
+          <button className="p-4" onClick={logout}>
+            Logout
+          </button>
+        ) : (
+          <>
+            <Link to="/app/login" className="p-4">
+              Login
+            </Link>
+            <Link to="/app/signup" className="p-4">
+              Signup
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );
 };
-
-export default Navbar;
