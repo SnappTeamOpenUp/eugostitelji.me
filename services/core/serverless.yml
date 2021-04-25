@@ -8,6 +8,8 @@ custom:
     algoliaAdminApiKey: ${ssm:/e-ugostitelji/algolia/api-key}
     algoliaIndexName: service_provider
     tableName: ${env:TABLE_NAME}
+  appSync:
+    - ${file(api.yml)}
 
 package:
   individually: true
@@ -16,6 +18,7 @@ plugins:
   - serverless-bundle
   - serverless-offline
   - serverless-dotenv-plugin
+  - serverless-appsync-plugin
 
 provider:
   name: aws
@@ -78,15 +81,15 @@ functions:
           path: places/{id}
           method: put
           cors: true
-#   delete:
-#     handler: delete.main
-#     events:
-#       - http:
-#           path: places/{id}
-#           method: delete
+  #   delete:
+  #     handler: delete.main
+  #     events:
+  #       - http:
+  #           path: places/{id}
+  #           method: delete
 
-  confirmUserSignUp:
-    handler: confirmUserSignUp.confirm
+  # confirmUserSignUp:
+  #   handler: confirmUserSignUp.confirm
 
 resources:
   - ${file(resources/cognito.yml)}

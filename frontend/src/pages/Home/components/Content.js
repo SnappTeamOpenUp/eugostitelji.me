@@ -8,6 +8,7 @@ export const Content = () => {
   useEffect(() => {
     fetchPlaces();
   }, []);
+
   const updatePibs = (pib) => {
     axios
       .put(
@@ -20,6 +21,7 @@ export const Content = () => {
       })
       .catch((err) => console.log(err));
   };
+
   const fetchPlaces = () => {
     console.log("fetching");
     axios
@@ -39,6 +41,7 @@ export const Content = () => {
       />
     ));
   };
+
   return (
     <div>
       {places.length ? (

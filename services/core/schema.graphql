@@ -1,0 +1,22 @@
+type UserT @aws_api_key {
+  id: ID!
+}
+
+type ServiceProvider @aws_api_key {
+  pib: ID!
+  userId: ID!
+  lastUpdated: AWSTimestamp!
+}
+
+type Query {
+  listServiceProviders: [ServiceProvider!]!
+}
+
+type Mutation {
+  updateServiceProvider(id: String): ServiceProvider
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
