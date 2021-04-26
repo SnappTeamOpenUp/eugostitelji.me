@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import { Item } from "./Item";
 
-export const Content = () => {
-  const [places, setPlaces] = useState([]);
+import gql from "graphql-tag";
+import { graphql, compose } from "react-apollo";
 
-  useEffect(() => {
-    fetchPlaces();
-  }, []);
+const ListServiceProviders = gql`
+  query {
+    listServiceProviders {
+      pib
+      userId
+    }
+  }
+`;
 
+const Content = ({ items }) => {
   const updatePibs = (pib) => {
     axios
       .put(
@@ -17,23 +23,15 @@ export const Content = () => {
       .then((res) => {
         console.log(res);
         console.log("Updated;");
-        fetchPlaces();
+        // fetchPlaces();
       })
       .catch((err) => console.log(err));
-  };
-
-  const fetchPlaces = () => {
-    console.log("fetching");
-    axios
-      .get("https://f14iah3bhi.execute-api.us-east-2.amazonaws.com/dev/places")
-      .then((res) => {
-        setPlaces(res.data);
-      });
   };
 
   const renderItems = (arr) => {
     return arr.map((el) => (
       <Item
+        key={el.pib}
         name={el.lastUpdated}
         pib={el.pib}
         userId={el.userId}
@@ -44,8 +42,8 @@ export const Content = () => {
 
   return (
     <div>
-      {places.length ? (
-        renderItems(places)
+      {items.length ? (
+        renderItems(items)
       ) : (
         <div
           style={{
@@ -55,9 +53,22 @@ export const Content = () => {
             transform: "translate(-50%, -50%)",
           }}
         >
-          Loading...
+          brtt...
         </div>
       )}
     </div>
   );
 };
+
+export default compose(
+  graphql(ListServiceProviders, {
+    options: {
+      fetchPolicy: "cache-and-network",
+    },
+    props: (props) => ({
+      items: props.data.listServiceProviders
+        ? props.data.listServiceProviders
+        : [],
+    }),
+  })
+)(Content);
