@@ -16,6 +16,12 @@ mappingTemplates:
     request: false
     response: false
 
+  - type: Mutation
+    field: createServiceProvider
+    dataSource: createServiceProvider
+    request: false
+    response: false
+
   # - type: Query
   #   field: getNote
   #   dataSource: getNote
@@ -34,6 +40,12 @@ dataSources:
     description: Lambda for listing Service Providers
     config:
       functionName: listServiceProviders
+
+  - type: AWS_LAMBDA
+    name: createServiceProvider
+    description: Lambda for creating single Service Provider
+    config:
+      functionName: createServiceProvider
 
   # - type: AWS_LAMBDA
   #   name: getNote
