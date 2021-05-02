@@ -5,7 +5,7 @@ type UserT @aws_api_key {
 type ServiceProvider @aws_api_key {
   pib: ID!
   userId: ID!
-  lastUpdated: AWSTimestamp!
+  # lastUpdated: AWSTimestamp!
 }
 
 type Query {
@@ -14,7 +14,7 @@ type Query {
 
 type Mutation {
   updateServiceProvider(id: String): ServiceProvider
-  createServiceProvider(id: String): ServiceProvider
+  createServiceProvider: ServiceProvider
 }
 
 schema {

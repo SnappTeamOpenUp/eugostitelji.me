@@ -52,8 +52,8 @@ functions:
           type: dynamodb
           arn: !GetAtt ServiceProvider.StreamArn
 
-  #   create:
-  #     handler: create.main
+  createServiceProvider:
+    handler: functions/createServiceProvider.main
   #     events:
   #       - http:
   #           path: places

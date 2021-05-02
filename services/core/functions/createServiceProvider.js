@@ -1,15 +1,16 @@
 import handler from "../libs/handler-lib";
 import dynamoDb from "../libs/dynamodb-lib";
+import { v4 as uuidv4 } from "uuid";
 
 export const main = handler(async (event) => {
-  const { content } = event.arguments;
+  // const { id } = event.arguments;
 
   const params = {
-    TableName: process.env.tableName,
+    TableName: process.env.searchTable,
     Item: {
       userId: "1", // The id of the author
-      noteId: uuid.v1(), // A unique uuid
-      content: content, // Parsed from request body
+      pib: uuidv4(), // A unique uuid
+      // pib: id, // Parsed from request body
     },
   };
   await dynamoDb.put(params);
