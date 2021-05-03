@@ -7,11 +7,21 @@ Resources:
           AttributeType: S
         - AttributeName: userId
           AttributeType: S
+        - AttributeName: dateCreated
+          AttributeType: S
+        - AttributeName: title
+          AttributeType: S
+        - AttributeName: logoImg
+          AttributeType: S
+        - AttributeName: workingHours
+          AttributeType: S
+        - AttributeName: coverImg
+          AttributeType: S
       KeySchema:
         - AttributeName: userId
-          KeyType: HASH
+          KeyType: HASH #trebamo li ova 2 da zamijenimo?
         - AttributeName: pib
-          KeyType: RANGE
+          KeyType: RANGE #trebamo li ova 2 da zamijenimo?
       ProvisionedThroughput:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
