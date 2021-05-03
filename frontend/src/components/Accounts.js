@@ -4,11 +4,13 @@ import { UserPool } from "../UserPool";
 
 export const AccountContext = createContext();
 
-export const Account = props => {
+export const Account = (props) => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    getSession().then(() => setLoggedIn(true));
+    getSession()
+      .then(() => setLoggedIn(true))
+      .catch(() => setLoggedIn(false));
   }, []);
 
   const getSession = async () =>
@@ -40,16 +42,16 @@ export const Account = props => {
       });
 
       user.authenticateUser(authDetails, {
-        onSuccess: data => {
+        onSuccess: (data) => {
           console.log("onSuccess", data);
           resolve(data);
           setLoggedIn(true);
         },
-        onFailure: err => {
+        onFailure: (err) => {
           console.error("onFailure", err);
           reject(err);
         },
-        newPasswordRequired: data => {
+        newPasswordRequired: (data) => {
           console.log("newPasswordRequired", data);
           resolve(data);
         },
