@@ -4,6 +4,7 @@ import { AccountContext } from "./components/Accounts";
 import { Dashboard } from "./pages/Dashboard";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
+import { NewService } from "./pages/NewService";
 import { Signup } from "./pages/Signup";
 
 export const RenderRoutes = ({ routes }) => {
@@ -32,6 +33,12 @@ const ROUTES = [
         key: "APP_LOGIN",
         exact: true,
         component: Login,
+      },
+      {
+        path: "/app/service",
+        key: "APP_SERVICE",
+        exact: true,
+        component: NewService,
       },
       {
         path: "/app/signup",
