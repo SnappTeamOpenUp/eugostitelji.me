@@ -9,6 +9,7 @@ import { Signup } from "./pages/Signup";
 
 export const RenderRoutes = ({ routes }) => {
   const { loggedIn } = useContext(AccountContext);
+
   return (
     <Switch>
       {routes
@@ -22,43 +23,43 @@ export const RenderRoutes = ({ routes }) => {
 };
 
 const ROUTES = [
-  { path: "/", key: "ROOT", exact: true, component: Home },
   {
     path: "/app",
     key: "APP",
     component: RenderRoutes,
+    permissions: true,
     routes: [
       {
-        path: "/app/login",
+        path: "/app/dashboard",
+        key: "APP_DASH",
+        exact: true,
+        component: Dashboard,
+      },
+      {
+        path: "/app/new-service",
+        key: "APP_SERVICE",
+        exact: true,
+        component: NewService,
+      },
+    ],
+  },
+  {
+    path: "/",
+    key: "ROOT",
+    component: RenderRoutes,
+    routes: [
+      { path: "/", key: "HOME", exact: true, component: Home },
+      {
+        path: "/login",
         key: "APP_LOGIN",
         exact: true,
         component: Login,
       },
       {
-        path: "/app/service",
-        key: "APP_SERVICE",
-        exact: true,
-        component: NewService,
-      },
-      {
-        path: "/app/signup",
+        path: "/signup",
         key: "APP_SIGNUP",
         exact: true,
         component: Signup,
-      },
-    ],
-  },
-  {
-    path: "/dashboard",
-    key: "DASHBOARD",
-    component: RenderRoutes,
-    permissions: true,
-    routes: [
-      {
-        path: "/dashboard",
-        key: "DASH_HOME",
-        exact: true,
-        component: Dashboard,
       },
     ],
   },

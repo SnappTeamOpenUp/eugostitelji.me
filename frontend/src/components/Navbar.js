@@ -25,14 +25,16 @@ export const Navbar = () => {
               About Us
             </Link>
           </li>
-          <li>
-            <Link
-              to="/"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Contact
-            </Link>
-          </li>
+          {loggedIn && (
+            <li>
+              <Link
+                to="/app/new-service"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+              >
+                New Service Provider
+              </Link>
+            </li>
+          )}
         </ul>
         <Link to="/" className="inline-flex items-center lg:mx-auto">
           <svg
@@ -68,7 +70,7 @@ export const Navbar = () => {
             <>
               <li>
                 <Link
-                  to="/app/login"
+                  to="/login"
                   className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                 >
                   Log in
@@ -76,7 +78,7 @@ export const Navbar = () => {
               </li>
               <li>
                 <Link
-                  to="/app/signup"
+                  to="/signup"
                   className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                 >
                   Sign up
@@ -184,7 +186,7 @@ export const Navbar = () => {
                       <>
                         <li>
                           <Link
-                            to="/app/login"
+                            to="/login"
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                           >
                             Log in
@@ -192,7 +194,7 @@ export const Navbar = () => {
                         </li>
                         <li>
                           <Link
-                            to="/app/signup"
+                            to="/signup"
                             className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                           >
                             Sign up
