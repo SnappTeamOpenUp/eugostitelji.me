@@ -9,7 +9,7 @@ This project was primarily made for educational purposes but it could also be us
 # Status
 ![CI/CD](https://github.com/SnappTeamOpenUp/eugostitelji.me/actions/workflows/production-deploy.yml/badge.svg)
 
-[![Frontend CI](https://img.shields.io/netlify/a79ae4f0-65ac-4b01-8271-dc8c37a65d4b)]](https://eugostitelji.netlify.app/)
+[![Frontend CI](https://img.shields.io/netlify/a79ae4f0-65ac-4b01-8271-dc8c37a65d4b)](https://eugostitelji.netlify.app/)
 
 [![Seed Serverless CD](https://img.shields.io/badge/SEED-SLS%20CD-purple)](https://seed.run/)
 # Tech stack
