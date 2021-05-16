@@ -14,6 +14,7 @@ This project was primarily made for educational purposes but it could also be us
 
 [![AWS](https://img.shields.io/badge/AWS-Amazon%20Web%20Services-orange)](https://aws.amazon.com/)
 
+[![React](https://badges.aleen42.com/src/react.svg)](https://reactjs.org/)
 
 # Contribute
 
