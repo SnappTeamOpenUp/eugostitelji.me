@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "scripts": {
+    "format": "prettier -w .",
+    "lint": "eslint --fix .",
+    "deploy": "serverless deploy",
+    "sls": "serverless"
+  },
+  "dependencies": {
+    "algoliasearch": "^4.9.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.909.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-graphql": "^4.0.0",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "prettier": "^2.3.0",
+    "serverless": "^2.41.2",
+    "serverless-appsync-plugin": "^1.11.3",
+    "serverless-bundle": "3.2.0",
+    "serverless-iam-roles-per-function": "^3.1.0"
+  }
+}

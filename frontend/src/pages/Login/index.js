@@ -1,11 +1,14 @@
-import React, { useContext, useState } from "react";
-import { useHistory } from "react-router";
-import { AccountContext } from "../../components/Accounts";
+import React, { useState } from "react";
+import { useHistory, Redirect } from "react-router-dom";
+
+import { useAccount } from "../../components/Accounts";
 import { Navbar } from "../../components/Navbar";
 
 export const Login = () => {
   const history = useHistory();
-  const { authenticate } = useContext(AccountContext);
+
+  const { authenticate, loggedIn } = useAccount();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,7 +16,6 @@ export const Login = () => {
     e.preventDefault();
     authenticate(email, password)
       .then((data) => {
-        console.log("Logged in!", data);
         history.push("/");
       })
       .catch((err) => {
@@ -21,26 +23,19 @@ export const Login = () => {
       });
   };
 
+  if (loggedIn) {
+    const target = history.location.state?.from.pathname || "/";
+    return <Redirect to={target} />;
+  }
+
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center">
+      <div className="relative z-10 w-screen bg-white">
+        <Navbar />
+      </div>
+      <div className="fixed bottom-0 top-0 left-0 right-0 bg-gray-50 flex flex-col justify-center">
         <div className="max-w-md w-full mx-auto">
           <h1 className="text-center font-medium text-xl">LOGIN</h1>
-          {/* {loggedIn ? (
-          <>
-            <h1 className="text-center font-medium text-xl">
-              YOU ARE LOGGED IN
-            </h1>
-            <button className="text-lg text-gray-900" onClick={logout}>
-              Logout
-            </button>
-          </>
-        ) : (
-          <h1 className="text-center font-medium text-xl">
-            YOU ARE NOT LOGGED IN
-          </h1>
-        )} */}
         </div>
         <div className="max-w-md w-full mx-auto mt-4 bg-white p-8 border border-gray-300">
           <form onSubmit={onSubmit} className="space-y-6">
@@ -60,6 +55,7 @@ export const Login = () => {
               className="w-full p-2 border border-gray-300 rounded mt-1"
               type="password"
               value={password}
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
             <button

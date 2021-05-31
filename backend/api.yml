@@ -1,0 +1,38 @@
+name: ${self:service}-${self:provider.stage}
+authenticationType: API_KEY
+
+apiKeys:
+  - name: test
+    description: Testing key
+
+additionalAuthenticationProviders:
+  - authenticationType: AMAZON_COGNITO_USER_POOLS
+    userPoolConfig:
+      userPoolId:
+        Ref: CognitoUserPool
+
+defaultMappingTemplates:
+  request: default/request.vtl
+  response: default/response.vtl
+
+mappingTemplates:
+  - type: Query
+    field: listServiceProviders
+    dataSource: listServiceProviders
+
+  - type: Mutation
+    field: createServiceProvider
+    dataSource: createServiceProvider
+
+dataSources:
+  - type: AWS_LAMBDA
+    name: listServiceProviders
+    description: Lambda for listing Service Providers
+    config:
+      functionName: listServiceProviders
+
+  - type: AWS_LAMBDA
+    name: createServiceProvider
+    description: Lambda for creating single Service Provider
+    config:
+      functionName: createServiceProvider

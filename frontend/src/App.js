@@ -1,10 +1,11 @@
 import React from "react";
+
 import { Account } from "./components/Accounts";
 import ROUTES, { RenderRoutes } from "./routes";
 
 const App = () => {
   return (
-    <div className="App">
+    <div>
       <Account>
         <RenderRoutes routes={ROUTES} />
       </Account>

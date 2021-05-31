@@ -1,9 +1,10 @@
-import React from "react";
 import { gql, useMutation } from "@apollo/client";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
-import { Navbar } from "../../components/Navbar";
+
 import { Footer } from "../../components/Footer";
+import { Navbar } from "../../components/Navbar";
 
 const ADD_SERVICE = gql`
   mutation AddService(
@@ -22,7 +23,6 @@ const ADD_SERVICE = gql`
       dateCreated
       logoImg
       pib
-      userId
       title
       workingHours
     }
@@ -31,6 +31,7 @@ const ADD_SERVICE = gql`
 
 export const NewService = () => {
   const history = useHistory();
+
   const [addService, { loading }] = useMutation(ADD_SERVICE, {
     onCompleted: () => {
       history.push("/");

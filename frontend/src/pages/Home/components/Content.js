@@ -1,7 +1,8 @@
-import React from "react";
-import { Item } from "./Item";
-import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+import React from "react";
+
+import { Item } from "./Item";
 
 const ListServiceProviders = gql`
   query {
@@ -28,7 +29,6 @@ const renderItems = (data) => {
 export const Content = () => {
   const { loading, error, data } = useQuery(ListServiceProviders);
 
-  if (error) return `Error! ${error.message}`;
   return (
     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="flex flex-col mb-6 lg:justify-between lg:flex-row md:mb-8">

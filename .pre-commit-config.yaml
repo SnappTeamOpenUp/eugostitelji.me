@@ -1,0 +1,60 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-json
+      - id: check-yaml
+        exclude: |
+          (?x)(
+            ^backend/serverless\.yml$ |
+            ^backend/api\.yml$ |
+            ^backend/iam-role-statements/.*\.(yml|yaml)$ |
+            ^backend/resources/.*\.(yml|yaml)$
+          )
+      - id: check-yaml
+        name: Check Yaml unsafe
+        args: [--unsafe]
+        files: |
+          (?x)(
+            ^backend/serverless\.yml$ |
+            ^backend/api\.yml$ |
+            ^backend/iam-role-statements/.*\.(yml|yaml)$ |
+            ^backend/resources/.*\.(yml|yaml)$
+          )
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.3.0
+    hooks:
+      - id: prettier
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v7.26.0
+    hooks:
+      - id: eslint
+        args: [--fix, --max-warnings=0]
+        additional_dependencies:
+          - eslint@7.26.0
+          - eslint-config-prettier@6.0.0
+          - eslint-plugin-react@7.23.1
+          - eslint-plugin-react-hooks@4.2.0
+          - babel-eslint@10.0.0
+          - eslint-config-react-app@6.0.0
+          - eslint-plugin-flowtype@5.4.0
+          - eslint-plugin-import@2.23.3
+          - eslint-plugin-jest@24.0.0
+          - eslint-plugin-jsx-a11y@6.4.1
+          - eslint-plugin-graphql@4.0.0
+
+  - repo: https://github.com/aws-cloudformation/cfn-python-lint
+    rev: v0.49.2
+    hooks:
+      - id: cfn-python-lint
+        files: ^backend/resources/.*\.(yml|yaml)$
+
+  - repo: https://github.com/AleksaC/mirrors-cfn-nag
+    rev: v0.7.13
+    hooks:
+      - id: cfn-nag
+        files: ^backend/resources/.*\.(yml|yaml)$
