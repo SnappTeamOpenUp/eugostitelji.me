@@ -34,7 +34,7 @@ provider:
 
 functions:
   algoliaSync:
-    handler: functions/algoliaSync.main
+    handler: functions/algoliaSync.addServiceProviders
     events:
       - stream:
           type: dynamodb

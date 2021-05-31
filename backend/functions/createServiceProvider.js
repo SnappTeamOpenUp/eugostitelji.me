@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 import dynamoDb from "../libs/dynamodb";
 
 export const main = async (event) => {
-  const { title, logoImg, workingHours, coverImg } = event.arguments;
+  const { title, logoImg, workingHours, coverImg, city, country, address } =
+    event;
 
   const params = {
     TableName: process.env.searchTable,
@@ -14,6 +15,9 @@ export const main = async (event) => {
       logoImg,
       workingHours,
       coverImg,
+      city,
+      country,
+      address,
     },
   };
 

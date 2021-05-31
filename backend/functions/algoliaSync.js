@@ -3,15 +3,10 @@ import { DynamoDB } from "aws-sdk";
 import { initIndex, getKeys } from "../libs/algolia";
 
 const prepareServiceProviderForAlgolia = (streamServiceProvider) => {
-  const provider = DynamoDB.Converter.unmarshall(streamServiceProvider);
+  const { id, ...rest } = DynamoDB.Converter.unmarshall(streamServiceProvider);
   return {
-    objectID: provider.pib,
-    address: provider.address,
-    country: provider.country,
-    city: provider.city,
-    name: provider.name,
-    latitude: provider.latitude,
-    longitude: provider.longitude,
+    ...rest,
+    objectID: id,
   };
 };
 
@@ -47,17 +42,16 @@ export const addServiceProviders = async ({ Records }) => {
     }
 
     if (toSave.length > 0) {
-      await index.setSettings({
-        searchableAttributes: ["title", "city", "country", "address", "tags"],
-        attributesForFaceting: [
-          "filterOnly(location)",
-          "filterOnly(city)",
-          "filterOnly(country)",
-        ],
-      });
+      try {
+        await index.setSettings({
+          searchableAttributes: ["title", "city", "country", "address", "tags"],
+          attributesForFaceting: ["tags", "city", "country"],
+        });
 
-      // TODO: error handling
-      await index.saveObjects(toSave);
+        await index.saveObjects(toSave);
+      } catch (err) {
+        console.log(err.errorMessage);
+      }
     }
   }
 };

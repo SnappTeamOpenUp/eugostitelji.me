@@ -11,8 +11,8 @@ const ssm = new aws.SSM();
 
   const params = [];
 
-  let secret = false;
   for (const arg of args) {
+    let secret = false;
     if (arg === "--secret") {
       secret = true;
       continue;

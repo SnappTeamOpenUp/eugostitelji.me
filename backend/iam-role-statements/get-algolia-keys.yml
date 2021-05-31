@@ -2,5 +2,5 @@ Effect: Allow
 Action:
   - ssm:GetParameter
 Resource:
-  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/eugostitelji.me/ALGOLIA_APP_ID"
-  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/eugostitelji.me/ALGOLIA_API_KEY"
+  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/ALGOLIA_APP_ID"
+  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/ALGOLIA_API_KEY"

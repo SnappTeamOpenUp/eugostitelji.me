@@ -31,6 +31,9 @@ type Mutation {
     logoImg: String
     workingHours: String
     coverImg: String!
+    city: String
+    country: String
+    address: String
   ): ServiceProvider @aws_cognito_user_pools
 
   confirmServiceProvider(title: String): ServiceProvider
