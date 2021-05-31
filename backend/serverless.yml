@@ -1,0 +1,76 @@
+frameworkVersion: "2.41.2"
+
+service: eugostitelji
+
+useDotenv: true
+
+disabledDeprecations:
+  - "CLI_OPTIONS_SCHEMA"
+  - "PROVIDER_IAM_SETTINGS"
+
+package:
+  individually: true
+
+plugins:
+  - serverless-bundle
+  - serverless-appsync-plugin
+  - serverless-iam-roles-per-function
+
+custom:
+  settings:
+    searchTable: ${self:service}-${self:provider.stage}-service-providers
+    userTable: ${self:service}-${self:provider.stage}-users
+  appSync:
+    - ${file(api.yml)}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
+  stage: ${opt:stage, 'dev'}
+  lambdaHashingVersion: "20201221"
+
+  environment: ${self:custom.settings}
+
+functions:
+  algoliaSync:
+    handler: functions/algoliaSync.main
+    events:
+      - stream:
+          type: dynamodb
+          arn: !GetAtt ServiceProviderTable.StreamArn
+    environment:
+      ALGOLIA_SERVICE_PROVIDER_INDEX_NAME: ${self:service}-${self:provider.stage}-service-providers
+    iamRoleStatements:
+      - ${file(iam-role-statements/read-service-providers-table.yml)}
+      - ${file(iam-role-statements/get-algolia-keys.yml)}
+
+  createServiceProvider:
+    handler: functions/createServiceProvider.main
+    iamRoleStatements:
+      - ${file(iam-role-statements/read-service-providers-table.yml)}
+      - ${file(iam-role-statements/write-service-providers-table.yml)}
+
+  # TODO: Use vtl resolver for the following 2 queries
+  getServiceProvider:
+    handler: functions/getServiceProvider.main
+
+  listServiceProviders:
+    handler: functions/listServiceProviders.main
+    iamRoleStatements:
+      - ${file(iam-role-statements/read-service-providers-table.yml)}
+
+  updateServiceProvider:
+    handler: functions/updateServiceProvider.main
+
+#  delete:
+#    handler: delete.main
+
+#  confirmUserSignUp:
+#    handler: confirmUserSignUp.confirm
+
+resources:
+  - ${file(resources/cognito.yml)}
+  - ${file(resources/users-table.yml)}
+  - ${file(resources/service-provider-table.yml)}
+  - ${file(resources/assets-bucket.yml)}

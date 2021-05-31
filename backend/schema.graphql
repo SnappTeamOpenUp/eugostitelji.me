@@ -1,0 +1,43 @@
+type UserT {
+  id: ID!
+}
+
+type ServiceProvider @aws_api_key @aws_cognito_user_pools {
+  id: ID!
+  pib: String
+  dateCreated: AWSTimestamp
+  title: String!
+  logoImg: String
+  workingHours: String
+  coverImg: String
+  city: String
+  country: String
+  address: String
+  latitude: Float
+  longitude: Float
+  website: AWSURL
+  tags: [String!]
+}
+
+type Query {
+  listServiceProviders: [ServiceProvider!]!
+}
+
+type Mutation {
+  updateServiceProvider(id: String): ServiceProvider @aws_cognito_user_pools
+
+  createServiceProvider(
+    title: String!
+    logoImg: String
+    workingHours: String
+    coverImg: String!
+  ): ServiceProvider @aws_cognito_user_pools
+
+  confirmServiceProvider(title: String): ServiceProvider
+    @aws_cognito_user_pools(cognito_groups: ["Moderator"])
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
