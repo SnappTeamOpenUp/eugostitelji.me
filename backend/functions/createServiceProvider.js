@@ -7,10 +7,10 @@ export const main = async (event) => {
     event;
 
   const params = {
-    TableName: process.env.searchTable,
+    TableName: process.env.SERVICE_PROVIDER_TABLE,
     Item: {
       id: uuidv4(),
-      dateCreated: Date.now(),
+      dateCreated: new Date().toISOString(),
       title,
       logoImg,
       workingHours,
@@ -18,6 +18,7 @@ export const main = async (event) => {
       city,
       country,
       address,
+      published: 0,
     },
   };
 

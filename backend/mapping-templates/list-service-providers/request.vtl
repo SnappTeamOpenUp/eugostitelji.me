@@ -1,18 +1,18 @@
 {
-    "version" : "2017-02-28",
-    "operation" : "Query",
-    "query" : {
-        "expression": "published = :published",
-        "expressionValues" : {
-            ":published" : {
-                "N" : 1
-            }
-        }
-    },
-    "index": "publishedIndex",
-    "limit": $util.defaultIfNull(${ctx.args.limit}, 15),
-    "nextToken": $util.toJson($util.defaultIfNullOrBlank($ctx.args.offset, null)),
-    "scanIndexForward" : false,
-  	"consistentRead" : false,
-  	"select" : "ALL_ATTRIBUTES"
+  "version" : "2017-02-28",
+  "operation" : "Query",
+  "query" : {
+    "expression": "published = :published",
+    "expressionValues" : {
+      ":published" : {
+        "N" : 1
+      }
+    }
+  },
+  "index": "publishedIndex",
+  "limit": $util.defaultIfNull(${ctx.args.limit}, 15),
+  "nextToken": $util.toJson($util.defaultIfNullOrBlank($ctx.args.offset, null)),
+  "scanIndexForward" : false,
+  "consistentRead" : false,
+  "select" : "ALL_ATTRIBUTES"
 }

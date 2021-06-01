@@ -19,8 +19,14 @@ type ServiceProvider @aws_api_key @aws_cognito_user_pools {
   tags: [String!]
 }
 
+type ServiceProviderPage @aws_api_key @aws_cognito_user_pools {
+  serviceProviders: [ServiceProvider!]!
+  nextToken: String
+}
+
 type Query {
-  listServiceProviders: [ServiceProvider!]!
+  listServiceProviders(limit: Int, offset: String): ServiceProviderPage!
+  getServiceProvider(id: ID!): ServiceProvider
 }
 
 type Mutation {
@@ -34,6 +40,7 @@ type Mutation {
     city: String
     country: String
     address: String
+    pib: String
   ): ServiceProvider @aws_cognito_user_pools
 
   confirmServiceProvider(title: String): ServiceProvider

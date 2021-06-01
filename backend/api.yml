@@ -18,18 +18,27 @@ defaultMappingTemplates:
 mappingTemplates:
   - type: Query
     field: listServiceProviders
-    dataSource: listServiceProviders
+    dataSource: serviceProviderTable
+    request: list-service-providers/request.vtl
+    response: list-service-providers/response.vtl
+
+  - type: Query
+    field: getServiceProvider
+    dataSource: serviceProviderTable
+    request: get-service-provider/request.vtl
+    response: get-service-provider/response.vtl
 
   - type: Mutation
     field: createServiceProvider
     dataSource: createServiceProvider
 
 dataSources:
-  - type: AWS_LAMBDA
-    name: listServiceProviders
-    description: Lambda for listing Service Providers
+  - type: AMAZON_DYNAMODB
+    name: serviceProviderTable
     config:
-      functionName: listServiceProviders
+      tableName: !Ref ServiceProviderTable
+      iamRoleStatements:
+        - ${file(iam-role-statements/read-service-providers-table.yml)}
 
   - type: AWS_LAMBDA
     name: createServiceProvider

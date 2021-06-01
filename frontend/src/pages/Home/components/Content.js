@@ -7,18 +7,21 @@ import { Item } from "./Item";
 const ListServiceProviders = gql`
   query {
     listServiceProviders {
-      pib
-      coverImg
-      title
-      workingHours
+      serviceProviders {
+        id
+        coverImg
+        title
+        workingHours
+      }
     }
   }
 `;
+
 const renderItems = (data) => {
-  return data.listServiceProviders.map((details) => (
+  return data.listServiceProviders.serviceProviders.map((details) => (
     <Item
-      key={details.pib}
-      pib={details.pib}
+      key={details.id}
+      id={details.id}
       coverImg={details.coverImg}
       title={details.title}
       workingHours={details.workingHours}

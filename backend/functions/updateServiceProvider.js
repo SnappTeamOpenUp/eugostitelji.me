@@ -2,7 +2,7 @@ import dynamoDb from "../libs/dynamodb";
 
 export const main = async (event) => {
   const params = {
-    TableName: process.env.searchTable,
+    TableName: process.env.SERVICE_PROVIDER_TABLE,
     Key: {
       userId: "1",
       pib: event.pathParameters.id,
