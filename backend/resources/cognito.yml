@@ -16,6 +16,15 @@ Resources:
         - email
       VerificationMessageTemplate:
         DefaultEmailOption: CONFIRM_WITH_LINK
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - E1029
+      cfn_nag:
+        rules_to_suppress:
+          - id: F78
+            reason: "MFA is not needed at this point and can easily be added later on"
 
   UserPoolDomain:
     Type: AWS::Cognito::UserPoolDomain

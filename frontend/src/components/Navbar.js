@@ -26,6 +26,14 @@ export const Navbar = () => {
               About Us
             </Link>
           </li>
+          <li>
+            <Link
+              to="/api"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            >
+              API
+            </Link>
+          </li>
           {loggedIn && (
             <li>
               <Link
