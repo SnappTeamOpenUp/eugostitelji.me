@@ -18,8 +18,8 @@ plugins:
 
 custom:
   settings:
-    searchTable: ${self:service}-${self:provider.stage}-service-providers
-    userTable: ${self:service}-${self:provider.stage}-users
+    SERVICE_PROVIDER_TABLE: ${self:service}-${self:provider.stage}-service-providers
+    USER_TABLE: ${self:service}-${self:provider.stage}-users
   appSync:
     - ${file(api.yml)}
 
@@ -34,7 +34,7 @@ provider:
 
 functions:
   algoliaSync:
-    handler: functions/algoliaSync.main
+    handler: functions/algoliaSync.addServiceProviders
     events:
       - stream:
           type: dynamodb
@@ -50,15 +50,6 @@ functions:
     iamRoleStatements:
       - ${file(iam-role-statements/read-service-providers-table.yml)}
       - ${file(iam-role-statements/write-service-providers-table.yml)}
-
-  # TODO: Use vtl resolver for the following 2 queries
-  getServiceProvider:
-    handler: functions/getServiceProvider.main
-
-  listServiceProviders:
-    handler: functions/listServiceProviders.main
-    iamRoleStatements:
-      - ${file(iam-role-statements/read-service-providers-table.yml)}
 
   updateServiceProvider:
     handler: functions/updateServiceProvider.main

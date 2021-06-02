@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const Item = ({ pib, coverImg, title, workingHours }) => {
+export const Item = ({ id, coverImg, title, workingHours }) => {
   return (
-    <Link to={`/serviceprovider/${pib}`} aria-label="View Item">
+    <Link to={`/serviceprovider/${id}`} aria-label="View Item">
       <div className="relative overflow-hidden transition duration-200 rounded shadow-lg  hover:shadow-2xl">
         <img
           className="object-cover w-full h-56 md:h-64 xl:h-80"

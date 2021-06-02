@@ -2,7 +2,7 @@ Resources:
   UserTable:
     Type: "AWS::DynamoDB::Table"
     Properties:
-      TableName: ${self:custom.settings.userTable}
+      TableName: ${self:custom.settings.USER_TABLE}
       BillingMode: PAY_PER_REQUEST
 
       AttributeDefinitions:
