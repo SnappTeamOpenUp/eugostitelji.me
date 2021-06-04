@@ -14,7 +14,7 @@ function Api() {
   return (
     <>
       <Navbar />
-      <div className="fixed top-24 bottom-0 left-0 right-0 border-t-2">
+      <div className="fixed top-20 bottom-0 left-0 right-0 border-t-2">
         <GraphiQL
           fetcher={async (graphQLParams) => {
             // TODO: support multiple operations
