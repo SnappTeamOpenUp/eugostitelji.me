@@ -29,3 +29,15 @@ Resources:
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
+
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - E1029
+      cfn_nag:
+        rules_to_suppress:
+          - id: W74
+            reason: "There is no need to encrypt this table"
+          - id: W28
+            reason: "Resources is protected by stack policy"

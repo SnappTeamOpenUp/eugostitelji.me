@@ -10,6 +10,7 @@ import { Signup } from "./pages/Signup";
 import NotFoundPage from "./pages/404";
 import AboutUs from "./pages/AboutUs";
 import ServiceProvider from "./pages/ServiceProvider";
+import Api from "./pages/Api";
 
 export const PrivateRoute = ({ render, ...rest }) => {
   let { loggedIn } = useAccount();
@@ -88,6 +89,7 @@ const ROUTES = [
     routes: [
       { path: "/", key: "HOME", exact: true, component: Home },
       { path: "/about-us", key: "ABOUT", exact: true, component: AboutUs },
+      { path: "/api", key: "API", exact: true, component: Api },
       {
         path: "/login",
         key: "APP_LOGIN",
