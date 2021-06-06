@@ -26,16 +26,6 @@ export const Navbar = () => {
               About Us
             </Link>
           </li>
-          {loggedIn && (
-            <li>
-              <Link
-                to="/app/new-service"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-              >
-                New Service Provider
-              </Link>
-            </li>
-          )}
         </ul>
         <Link to="/" className="inline-flex items-center lg:mx-auto">
           <svg
@@ -59,6 +49,15 @@ export const Navbar = () => {
         </Link>
         <ul className="flex items-center hidden ml-auto space-x-8 lg:flex">
           {loggedIn ? (
+            <>
+            <li>
+              <Link
+                to="/app/new-service"
+                className="font-bold tracking-wide text-green-accent-400 transition-colors duration-200 hover:text-deep-purple-accent-800"
+              >
+                Add Place
+              </Link>
+            </li>
             <li>
               <button
                 onClick={logout}
@@ -67,6 +66,7 @@ export const Navbar = () => {
                 Logout
               </button>
             </li>
+            </>
           ) : (
             <>
               <li>
