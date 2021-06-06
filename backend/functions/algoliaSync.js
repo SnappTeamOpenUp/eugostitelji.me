@@ -21,7 +21,12 @@ export const addServiceProviders = async ({ Records }) => {
       );
       toRemove.push(objectID);
     } else {
-      toSave.push(prepareServiceProviderForAlgolia(record.dynamodb.NewImage));
+      const provider = prepareServiceProviderForAlgolia(
+        record.dynamodb.NewImage
+      );
+      if (provider.published === 1) {
+        toSave.push(provider);
+      }
     }
 
     if (toRemove.length === 0 && toSave.length === 0) {
