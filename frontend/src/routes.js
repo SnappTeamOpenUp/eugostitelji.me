@@ -11,6 +11,7 @@ import NotFoundPage from "./pages/404";
 import AboutUs from "./pages/AboutUs";
 import ServiceProvider from "./pages/ServiceProvider";
 import Api from "./pages/Api";
+import { Search } from "./pages/Search";
 
 export const PrivateRoute = ({ render, ...rest }) => {
   let { loggedIn } = useAccount();
@@ -88,6 +89,7 @@ const ROUTES = [
     component: RenderRoutes,
     routes: [
       { path: "/", key: "HOME", exact: true, component: Home },
+      { path: "/search/:term", key: "SEARCH", exact: true, component: Search },
       { path: "/about-us", key: "ABOUT", exact: true, component: AboutUs },
       { path: "/api", key: "API", exact: true, component: Api },
       {
