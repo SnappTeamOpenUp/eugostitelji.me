@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
+
+import { searchAlgolia } from "../../../services/search";
 
 export const Header = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = async (term) => {
+    setLoading(true);
+    try {
+      const res = await searchAlgolia(term, {});
+
+    }catch(e){
+      console.log(e);
+    }finally{
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="max-w-2xl mx-auto sm:max-w-xl md:max-w-2xl">
@@ -43,12 +60,13 @@ export const Header = () => {
           <div className="flex flex-col items-center w-full mb-20 md:flex-row md:px-16">
             <input
               placeholder="Find restaurants, delivery, takeout..."
-              required=""
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
               type="text"
               className="flex-grow w-full h-12 px-4 mb-3 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mr-2 md:mb-0 focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
             />
-            <button className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
-              Search
+            <button onClick={() => handleSearch(searchTerm)} className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
+              {loading ? 'Searching...' : 'Search'} 
             </button>
           </div>
         </div>
